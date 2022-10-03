@@ -35,7 +35,7 @@ void led(double brightness){
   // if (brightness <= 0 || brightness >= 255) {
   //   fadeAmount = -fadeAmount;
   // }
-}
+}double pref=0;
 void loop() {
   float distance;
 
@@ -49,12 +49,15 @@ void loop() {
 
   if (distance < _DIST_MIN) {
     distance = _DIST_MIN - 10.0;    // Set Lower Value
-    digitalWrite(PIN_LED, 1);       // LED OFF
+    led(pref);
+    // digitalWrite(PIN_LED, 1);       // LED OFF
   } else if (distance > _DIST_MAX) {
     distance = _DIST_MAX + 10.0;    // Set Higher Value
-    digitalWrite(PIN_LED, 1);       // LED OFF
+    led(pref);
+    // digitalWrite(PIN_LED, 1);       // LED OFF
   } else {    // In desired Range
     int dis=abs((double)(200-distance)/100*255);
+    pref=dis;
     led(dis);       // LED ON      
   }
 
@@ -65,7 +68,7 @@ void loop() {
   Serial.println("");
   
   // do something here
-  delay(50); // Assume that it takes 50ms to do something.
+  // delay(50); // Assume that it takes 50ms to do something.
   
   // update last sampling time
   last_sampling_time += INTERVAL;
